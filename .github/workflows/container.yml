@@ -37,4 +37,4 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Deploy container
-        run: aws s3 sync dist s3://${{ secrets.AWS_BUCKET_NAME }}/container/latest
+        run: aws s3 sync dist s3://${{ secrets.AWS_BUCKET_NAME }}/container/latest # deploy to s3 bucket

@@ -1,14 +1,14 @@
-name: deploy-container
+name: deploy-marketing
 
 on:
   push:
     branches: ["main"] # only trigger when main branch is pushed
     paths:
-      - "packages/container/**" # only trigger when container package is changed
+      - "packages/marketing/**" # only trigger when marketing package is changed
 
 defaults: # set default working directory for all jobs§
   run:
-    working-directory: packages/container # all jobs will run in this directory
+    working-directory: packages/marketing # all jobs will run in this directory
 
 jobs:
   build:
@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build container
+      - name: Build marketing
         run: pnpm run build
         env:
           PRODUCTION_DOMAIN: ${{secrets.PRODUCTION_DOMAIN}}
@@ -45,7 +45,7 @@ jobs:
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
 
       - name: Deploy container
-        run: aws s3 sync dist s3://${{ secrets.AWS_BUCKET_NAME }}/container/latest # deploy to s3 bucket
+        run: aws s3 sync dist s3://${{ secrets.AWS_BUCKET_NAME }}/marketing/latest # deploy to s3 bucket
 
       - name: Invalidate CloudFront
-        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --paths "/container/latest/*"
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --paths "/marketing/latest/*"

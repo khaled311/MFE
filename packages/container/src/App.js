@@ -1,15 +1,25 @@
 import React from "react";
 import MarketingApp from "./components/MarketingApp";
+import Header from "./components/Header";
+import { BrowserRouter } from "react-router-dom";
+import {
+  StylesProvider,
+  createGenerateClassName,
+} from "@material-ui/core/styles";
 
 export default () => {
-  // useEffect(() => {
-  //   console.log("Container app is running");
-  // }, []);
+  const generateClassName = createGenerateClassName({
+    productionPrefix: "cn",
+    // disableGlobal: true,
+  });
   return (
-    <div>
-      <h1>Hi There!!!</h1>
-      <hr />
-      <MarketingApp />
-    </div>
+    <StylesProvider generateClassName={generateClassName}>
+      <BrowserRouter>
+        <div>
+          <Header />
+          <MarketingApp />
+        </div>
+      </BrowserRouter>
+    </StylesProvider>
   );
 };

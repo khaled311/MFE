@@ -13,7 +13,7 @@ export default ({ history, onSignIn }) => {
     // disableGlobal: true,
   });
   useEffect(() => {
-    console.log("Auth App mounted");
+    console.log("Auth App mounted!");
   }, []);
   return (
     <StylesProvider generateClassName={generateClassName} injectFirst>
